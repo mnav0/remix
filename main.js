@@ -1,35 +1,35 @@
 import { poem } from './poem.js';
 
-const rules = [
-	{ title: 'size', key: 'size' },
-	{ title: 'case', key: 'case' },
-	{ title: 'weight', key: 'weight' },
-	{ title: 'orientation', key: 'orientation' },
-	{ title: 'motion', key: 'motion' }
-];
+const rules = ['size', 'case', 'weight', 'orientation', 'motion'];
 const variations = ['01', '02', '03', '04'];
 
-let currentRule = rules[0].key;
-let currentVariation = variations[0];
+let currentRuleIndex = 0;
+let currentVariation = 0;
 
+function invertColors(container) {
+	container.classList.add('inverted-colors');
+}
 
 function createNavElems() {
 	const nav = document.getElementById('nav-bar');
-	if (!nav) return;
-	nav.innerHTML = '';
 	const ul = document.createElement('ul');
-	rules.forEach(rule => {
+  const titleLi = document.createElement('li');
+  titleLi.className = 'poem-title';
+  titleLi.textContent = '"Student of Clouds" by Billy Collins';
+  ul.appendChild(titleLi);
+
+	rules.forEach((rule, rIdx) => {
 		const li = document.createElement('li');
 		li.className = 'rule-group';
-		li.textContent = rule.title;
+		li.textContent = rule;
 		const varUl = document.createElement('ul');
 		varUl.className = 'variations';
-		variations.forEach(variation => {
+		variations.forEach((variation, vIdx) => {
 			const varLi = document.createElement('li');
 			const btn = document.createElement('button');
 			btn.textContent = variation;
-			btn.setAttribute('data-rule', rule.key);
-			btn.setAttribute('data-variation', variation);
+			btn.setAttribute('data-rule-index', rIdx);
+			btn.setAttribute('data-variation', vIdx);
 			varLi.appendChild(btn);
 			varUl.appendChild(varLi);
 		});
@@ -39,10 +39,52 @@ function createNavElems() {
 	nav.appendChild(ul);
 }
 
+
+function displayStanzas(container, stanzaClass = '', stanzaTransform = s => s) {
+	poem.stanzas.forEach((stanza, idx) => {
+		const div = document.createElement('p');
+		div.textContent = stanzaTransform(stanza, idx);
+		if (stanzaClass) div.className = stanzaClass;
+		container.appendChild(div);
+	});
+}
+
+function displayLines(container, lineClass = '', lineTransform = l => l) {
+	poem.lines.forEach((line, idx) => {
+		const div = document.createElement('p');
+		div.textContent = lineTransform(line, idx);
+		if (lineClass) div.className = lineClass;
+		container.appendChild(div);
+	});
+}
+
+const poemComponents = rules.map((rule, rIdx) =>
+	variations.map((variation, vIdx) => {
+		return function render(container) {
+			container.innerHTML = "";
+			container.classList.remove('inverted-colors');
+
+			if (rule === "size" && variation === "01") {
+				displayLines(container, "poem-line size-01");
+			} else if (rule === "case" && variation === "02") {
+				displayStanzas(container, "poem-stanza case-02", s => s.toUpperCase());
+			} else if (rule === "weight" && variation === "03") {
+				invertColors(container);
+				displayLines(container, "poem-line weight-03");
+			} else {
+				const div = document.createElement("div");
+				div.textContent = poem.full;
+				div.className = "poem-full";
+				container.appendChild(div);
+			}
+		};
+	})
+);
+
 function renderPoem() {
 	const container = document.getElementById('poem-container');
 	if (container) {
-		container.textContent = `${currentVariation} - ${poem.full}`;
+		poemComponents[currentRuleIndex][currentVariation](container);
 	}
 }
 
@@ -53,7 +95,7 @@ function setupNavBar() {
 	if (nav) {
 		nav.addEventListener('click', (e) => {
 			if (e.target.tagName === 'BUTTON') {
-				currentRule = e.target.getAttribute('data-rule');
+				currentRuleIndex = parseInt(e.target.getAttribute('data-rule-index'), 10);
 				currentVariation = e.target.getAttribute('data-variation');
 				renderPoem();
 			}
