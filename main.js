@@ -1,4 +1,4 @@
-import { poem } from './poem.js';
+import { poem, styledPoem } from './poem.js';
 
 const rules = ['size', 'case', 'weight', 'orientation', 'motion'];
 const variations = ['01', '02', '03', '04'];
@@ -13,10 +13,10 @@ function invertColors(container) {
 function createNavElems() {
 	const nav = document.getElementById('nav-bar');
 	const ul = document.createElement('ul');
-  const titleLi = document.createElement('li');
-  titleLi.className = 'poem-title';
-  titleLi.textContent = '"Student of Clouds" by Billy Collins';
-  ul.appendChild(titleLi);
+	const titleLi = document.createElement('li');
+	titleLi.className = 'poem-title';
+	titleLi.textContent = poem.title;
+	ul.appendChild(titleLi);
 
 	rules.forEach((rule, rIdx) => {
 		const li = document.createElement('li');
@@ -37,24 +37,65 @@ function createNavElems() {
 		ul.appendChild(li);
 	});
 	nav.appendChild(ul);
+  activeNavButton();
 }
 
-
-function displayStanzas(container, stanzaClass = '', stanzaTransform = s => s) {
-	poem.stanzas.forEach((stanza, idx) => {
+const displayStanzas = (container, className = '') => {
+	styledPoem.stanzas.forEach((stanzaObj, idx) => {
 		const div = document.createElement('p');
-		div.textContent = stanzaTransform(stanza, idx);
-		if (stanzaClass) div.className = stanzaClass;
+		div.textContent = stanzaObj.text;
+		div.className = className || stanzaObj.class || '';
 		container.appendChild(div);
 	});
 }
 
-function displayLines(container, lineClass = '', lineTransform = l => l) {
-	poem.lines.forEach((line, idx) => {
+const displayLines = (container, className = '') => {
+	styledPoem.lines.forEach((lineObj, idx) => {
 		const div = document.createElement('p');
-		div.textContent = lineTransform(line, idx);
-		if (lineClass) div.className = lineClass;
+		div.textContent = lineObj.text;
+		div.className = className || lineObj.class || '';
 		container.appendChild(div);
+	});
+}
+
+function displayWords(container, className = '') {
+	styledPoem.words.forEach((wordObj, idx) => {
+		const span = document.createElement('span');
+		span.textContent = wordObj.text;
+		span.className = className || wordObj.class || '';
+		container.appendChild(span);
+		container.appendChild(document.createTextNode(' '));
+	});
+}
+
+function displaySplitLines(container, leftClass = '', rightClass = '') {
+	const wrapper = document.createElement('div');
+	wrapper.className = 'split-lines-wrapper';
+	const leftCol = document.createElement('div');
+	leftCol.className = 'split-lines-left';
+	styledPoem.splitLines.forEach(split => {
+		if (!split) return;
+		const wrapper = document.createElement('div');
+		wrapper.className = 'split-lines-wrapper';
+		const leftCol = document.createElement('div');
+		leftCol.className = 'split-lines-left';
+		split.left.forEach((lineObj, idx) => {
+			const div = document.createElement('div');
+			div.textContent = lineObj.text;
+			div.className = leftClass || lineObj.class || '';
+			leftCol.appendChild(div);
+		});
+		const rightCol = document.createElement('div');
+		rightCol.className = 'split-lines-right';
+		split.right.forEach((lineObj, idx) => {
+			const div = document.createElement('div');
+			div.textContent = lineObj.text;
+			div.className = rightClass || lineObj.class || '';
+			rightCol.appendChild(div);
+		});
+		wrapper.appendChild(leftCol);
+		wrapper.appendChild(rightCol);
+		container.appendChild(wrapper);
 	});
 }
 
@@ -64,19 +105,72 @@ const poemComponents = rules.map((rule, rIdx) =>
 			container.innerHTML = "";
 			container.classList.remove('inverted-colors');
 
-			if (rule === "size" && variation === "01") {
-				displayLines(container, "poem-line size-01");
-			} else if (rule === "case" && variation === "02") {
-				displayStanzas(container, "poem-stanza case-02", s => s.toUpperCase());
-			} else if (rule === "weight" && variation === "03") {
-				invertColors(container);
-				displayLines(container, "poem-line weight-03");
-			} else {
-				const div = document.createElement("div");
-				div.textContent = poem.full;
-				div.className = "poem-full";
-				container.appendChild(div);
-			}
+      switch (rule) {
+        case 'size':
+          if (variation === '01') {
+            displayLines(container, 'poem-line size-01');
+          } else if (variation === '02') {
+            displayWords(container, 'poem-word size-02');
+          } else if (variation === '03') {
+            displayStanzas(container, 'poem-stanza size-03');
+          } else if (variation === '04') {
+            invertColors(container);
+            displayLines(container, 'poem-line size-04');
+          }
+          break;
+        case 'case':
+          if (variation === '01') {
+            displayLines(container, 'poem-line case-01');
+          } else if (variation === '02') {
+            displayLines(container, 'poem-line case-02');
+          } else if (variation === '03') {
+            displaySplitLines(container, 0, 'poem-line case-03-left', 'poem-line case-03-right');
+          } else if (variation === '04') {
+            displayWords(container, 'poem-word case-04');
+          }
+          break;
+        case 'weight':
+          if (variation === '01') {
+            displayWords(container, 'poem-word weight-01');
+          } else if (variation === '02') {
+            displaySplitLines(container, 0, 'poem-line weight-02-left', 'poem-line weight-02-right');
+          } else if (variation === '03') {
+            invertColors(container);
+            displayStanzas(container, 'poem-stanza weight-03');
+          } else if (variation === '04') {
+            displayLines(container, 'poem-line weight-04');
+          }
+          break;
+        case 'orientation':
+          if (variation === '01') {
+            invertColors(container);
+            displayLines(container, 'poem-line orientation-01');
+          } else if (variation === '02') {
+            displayStanzas(container, 'poem-stanza orientation-02');
+          } else if (variation === '03') {
+            invertColors(container);
+            displaySplitLines(container, 'poem-stanza orientation-03');
+          } else if (variation === '04') {
+            displayLines(container, 'poem-line orientation-04');
+          }
+          break;
+        case 'motion':
+          if (variation === '01') {
+            displayStanzas(container, 'poem-stanza motion-01');
+          } else if (variation === '02') {
+            displayStanzas(container, 'poem-stanza motion-02');
+          } else if (variation === '03') {
+            displayStanzas(container, 'poem-stanza motion-03');
+          } else if (variation === '04') {
+            displayStanzas(container, 'poem-stanza motion-04');
+          }
+          break;
+        default:
+          const div = document.createElement("div");
+          div.textContent = poem.full;
+          div.className = "poem-full";
+          container.appendChild(div);
+      }
 		};
 	})
 );
@@ -88,19 +182,34 @@ function renderPoem() {
 	}
 }
 
+function activeNavButton() {
+  const nav = document.getElementById('nav-bar');
+  const buttons = nav.querySelectorAll('button');
+  // add active only to the button that matches the current rule and variation
+  buttons.forEach(btn => {
+    const btnRuleIndex = parseInt(btn.getAttribute('data-rule-index'), 10);
+    const btnVariation = parseInt(btn.getAttribute('data-variation'), 10);
+    if (btnRuleIndex === currentRuleIndex && btnVariation === currentVariation) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
 
 function setupNavBar() {
-	createNavElems();
-	const nav = document.getElementById('nav-bar');
-	if (nav) {
-		nav.addEventListener('click', (e) => {
-			if (e.target.tagName === 'BUTTON') {
-				currentRuleIndex = parseInt(e.target.getAttribute('data-rule-index'), 10);
-				currentVariation = e.target.getAttribute('data-variation');
-				renderPoem();
-			}
-		});
-	}
+  createNavElems();
+  const nav = document.getElementById('nav-bar');
+  if (nav) {
+    nav.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        currentRuleIndex = parseInt(e.target.getAttribute('data-rule-index'), 10);
+        currentVariation = parseInt(e.target.getAttribute('data-variation'), 10);
+        activeNavButton();
+        renderPoem();
+      }
+    });
+  }
 }
 
 setupNavBar();

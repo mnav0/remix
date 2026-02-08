@@ -63,33 +63,30 @@ body {
   cursor: pointer;
 }
 
-#nav-bar button:hover,
-#nav-bar button:focus {
+#nav-bar button:hover{
   background: #000;
   color: #fff;
   outline: 1px solid #fff;
 }
 
-#poem-container {
-  max-width: 700px;
-  background: #fff;
-  padding: 2rem 2.5rem;
-  font-size: 1.2rem;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  margin: 0 auto;
+#nav-bar button.active {
+  background: #000;
+  color: #fff;
+  outline: 1px solid #fff;
+  font-weight: 700;
 }
 
 #poem-container {
-  max-width: 700px;
+  width: 100vw;
+  height: 100vh;
   background: #fff;
-  padding: 2rem 2.5rem;
+  padding: 2rem 0;
   font-size: 1.2rem;
   line-height: 1.7;
   letter-spacing: 0.01em;
 }
 
 .inverted-colors {
-  background-color: #000;
+  background-color: #000 !important;
   color: #fff;
 }
