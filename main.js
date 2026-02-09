@@ -44,7 +44,7 @@ const displayStanzas = (container, className = '') => {
 	styledPoem.stanzas.forEach((stanzaObj, idx) => {
 		const div = document.createElement('p');
 		div.textContent = stanzaObj.text;
-		div.className = className || stanzaObj.class || '';
+		div.className = (className || stanzaObj.class || '') + ' stanza-' + (idx + 1);
 		container.appendChild(div);
 	});
 }
@@ -53,19 +53,23 @@ const displayLines = (container, className = '') => {
 	styledPoem.lines.forEach((lineObj, idx) => {
 		const div = document.createElement('p');
 		div.textContent = lineObj.text;
-		div.className = className || lineObj.class || '';
+		div.classList.add((className || lineObj.class));
+    div.classList.add('line-' + (idx + 1));
+    div.classList.add('stanza-' + lineObj.stanza);
 		container.appendChild(div);
 	});
 }
 
 function displayWords(container, className = '') {
+  const p = document.createElement('p');
+  p.className = 'words-text';
 	styledPoem.words.forEach((wordObj, idx) => {
 		const span = document.createElement('span');
 		span.textContent = wordObj.text;
-		span.className = className || wordObj.class || '';
-		container.appendChild(span);
-		container.appendChild(document.createTextNode(' '));
+		span.className = (className || wordObj.class || '') + ' word-' + (idx + 1);
+		p.appendChild(span);
 	});
+  container.appendChild(p);
 }
 
 function displaySplitLines(container, leftClass = '', rightClass = '') {
@@ -80,7 +84,7 @@ function displaySplitLines(container, leftClass = '', rightClass = '') {
 		const leftCol = document.createElement('div');
 		leftCol.className = 'split-lines-left';
 		split.left.forEach((lineObj, idx) => {
-			const div = document.createElement('div');
+			const div = document.createElement('p');
 			div.textContent = lineObj.text;
 			div.className = leftClass || lineObj.class || '';
 			leftCol.appendChild(div);
@@ -88,7 +92,7 @@ function displaySplitLines(container, leftClass = '', rightClass = '') {
 		const rightCol = document.createElement('div');
 		rightCol.className = 'split-lines-right';
 		split.right.forEach((lineObj, idx) => {
-			const div = document.createElement('div');
+			const div = document.createElement('p');
 			div.textContent = lineObj.text;
 			div.className = rightClass || lineObj.class || '';
 			rightCol.appendChild(div);
@@ -103,66 +107,76 @@ const poemComponents = rules.map((rule, rIdx) =>
 	variations.map((variation, vIdx) => {
 		return function render(container) {
 			container.innerHTML = "";
-			container.classList.remove('inverted-colors');
+			container.className = "";
 
       switch (rule) {
         case 'size':
+          container.classList.add('size');
+          container.classList.add('size-' + variation);
           if (variation === '01') {
-            displayLines(container, 'poem-line size-01');
+            displayLines(container);
           } else if (variation === '02') {
-            displayWords(container, 'poem-word size-02');
+            displayWords(container);
           } else if (variation === '03') {
-            displayStanzas(container, 'poem-stanza size-03');
+            displayStanzas(container);
           } else if (variation === '04') {
             invertColors(container);
-            displayLines(container, 'poem-line size-04');
+            displayLines(container);
           }
           break;
         case 'case':
+          container.classList.add('case');
+          container.classList.add('case-' + variation);
           if (variation === '01') {
-            displayLines(container, 'poem-line case-01');
+            displayLines(container);
           } else if (variation === '02') {
-            displayLines(container, 'poem-line case-02');
+            displayLines(container);
           } else if (variation === '03') {
-            displaySplitLines(container, 0, 'poem-line case-03-left', 'poem-line case-03-right');
+            displaySplitLines(container, 0, 'case-03-left', 'case-03-right');
           } else if (variation === '04') {
-            displayWords(container, 'poem-word case-04');
+            displayWords(container);
           }
           break;
         case 'weight':
+          container.classList.add('weight');
+          container.classList.add('weight-' + variation);
           if (variation === '01') {
-            displayWords(container, 'poem-word weight-01');
+            displayWords(container);
           } else if (variation === '02') {
-            displaySplitLines(container, 0, 'poem-line weight-02-left', 'poem-line weight-02-right');
+            displaySplitLines(container, 0, 'weight-02-left', 'weight-02-right');
           } else if (variation === '03') {
             invertColors(container);
-            displayStanzas(container, 'poem-stanza weight-03');
+            displayStanzas(container);
           } else if (variation === '04') {
-            displayLines(container, 'poem-line weight-04');
+            displayLines(container);
           }
           break;
         case 'orientation':
+          container.classList.add('orientation');
+          container.classList.add('orientation-' + variation);
           if (variation === '01') {
             invertColors(container);
-            displayLines(container, 'poem-line orientation-01');
+            displayLines(container);
           } else if (variation === '02') {
-            displayStanzas(container, 'poem-stanza orientation-02');
+            displayStanzas(container);
           } else if (variation === '03') {
             invertColors(container);
-            displaySplitLines(container, 'poem-stanza orientation-03');
+            displaySplitLines(container, 'orientation-03-left', 'orientation-03-right');
           } else if (variation === '04') {
-            displayLines(container, 'poem-line orientation-04');
+            displayLines(container);
           }
           break;
         case 'motion':
+          container.classList.add('motion');
+          container.classList.add('motion-' + variation);
           if (variation === '01') {
-            displayStanzas(container, 'poem-stanza motion-01');
+            displayStanzas(container);
           } else if (variation === '02') {
-            displayStanzas(container, 'poem-stanza motion-02');
+            displayStanzas(container);
           } else if (variation === '03') {
-            displayStanzas(container, 'poem-stanza motion-03');
+            displayStanzas(container);
           } else if (variation === '04') {
-            displayStanzas(container, 'poem-stanza motion-04');
+            displayStanzas(container);
           }
           break;
         default:
@@ -176,7 +190,7 @@ const poemComponents = rules.map((rule, rIdx) =>
 );
 
 function renderPoem() {
-	const container = document.getElementById('poem-container');
+	const container = document.getElementById('poem');
 	if (container) {
 		poemComponents[currentRuleIndex][currentVariation](container);
 	}

@@ -4,7 +4,8 @@ body {
   color: #000;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100vw;
 }
 
 #nav-bar {
@@ -15,6 +16,7 @@ body {
   top: 0;
   left: 0;
   z-index: 100;
+  position: relative;
   border-bottom: 1px solid #fff;
 }
 
@@ -63,7 +65,7 @@ body {
   cursor: pointer;
 }
 
-#nav-bar button:hover{
+#nav-bar button:hover {
   background: #000;
   color: #fff;
   outline: 1px solid #fff;
@@ -76,11 +78,11 @@ body {
   font-weight: 700;
 }
 
-#poem-container {
+.poem-container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background: #fff;
-  padding: 2rem 0;
+  padding: 0;
   font-size: 1.2rem;
   line-height: 1.7;
   letter-spacing: 0.01em;
@@ -90,3 +92,171 @@ body {
   background-color: #000 !important;
   color: #fff;
 }
+
+.words-text span {
+  display: inline-block;
+  margin: 0.25rem;
+}
+
+/* WEIGHT */
+
+/* 01 */
+
+.weight.weight-01 p {
+  font-size: 4.5rem;
+  line-height: 0.75;
+  margin: 0.5rem 0;
+}
+
+.weight.weight-01 p span {
+  margin: 0 0.5rem;
+}
+
+.weight.weight-01 .lg {
+  font-weight: 900;
+}
+
+.weight.weight-01 .md {
+  font-weight: 600;
+}
+
+/* 02 */
+.weight.weight-02 p {
+  font-size: 2.5rem;
+  line-height: 0.9;
+  margin: 0.5rem 0;
+}
+
+.weight.weight-02 .split-lines-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.weight.weight-02 .split-lines-right {
+  text-align: right;
+  font-weight: 700;
+}
+
+/* 03 */
+
+.weight.weight-03 {
+  width: auto;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.weight.weight-03 p {
+  font-size: 2.5rem;
+  line-height: 0.9;
+}
+
+.weight.weight-03 .stanza-1 {
+  font-weight: 900;
+  width: 45%;
+}
+
+.weight.weight-03 .stanza-2 {
+  font-weight: 400;
+  width: 45%;
+  text-align: right;
+}
+
+.weight.weight-03 .stanza-3 {
+  font-weight: 300;
+  width: 45%;
+}
+
+.weight.weight-03 .stanza-4 {
+  font-weight: 800;
+  text-align: right;
+  width: 45%;
+}
+
+/* 04 */
+
+.weight.weight-04 p {
+  font-size: 4.5rem;
+  line-height: 0.6;
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+}
+
+.weight.weight-04 {
+  position: relative;
+  top: -0.75rem;
+}
+
+.weight.weight-04 .stanza-2 {
+  font-weight: 500;
+  text-align: right;
+  position: relative;
+  top: -0.25rem;
+}
+
+.weight.weight-04 .stanza-3 {
+  font-weight: 700;
+  position: relative;
+  top: -0.5rem;
+}
+
+.weight.weight-04 .stanza-4 {
+  font-weight: 300;
+  text-align: right;
+  position: relative;
+  top: -0.75rem;
+}
+
+/* ORIENTATION */
+
+.orientation {
+  position: relative;
+  top: 2rem;
+}
+
+.orientation p {
+  font-weight: 800;
+  font-size: 4rem;
+  line-height: 0.8;
+}
+
+/* 01 */
+
+/* 02 */
+.orientation-02 .stanza-1 {
+  transform: rotate(-20deg);
+  position: relative;
+  top: 4.5rem;
+  left: -7rem;
+  text-align: center;
+  width: 110vw;
+}
+
+.orientation-02 .stanza-2 {
+  position: relative;
+  top: 14rem;
+  left: -0.5rem;
+}
+
+.orientation-02 .stanza-3 {
+  transform: rotate(20deg);
+  position: relative;
+  top: 27rem;
+  left: -7rem;
+  text-align: center;
+  width: 110vw;
+}
+
+.orientation-02 .stanza-4 {
+  position: relative;
+  top: 35rem;
+  left: -0.5rem;
+}
+
+/* 03 */
+
+/* 04 */
