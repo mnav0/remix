@@ -251,6 +251,98 @@ body {
   align-items: flex-end;
 }
 
+/* CASE */
+
+/* 01 */
+.case.case-01 p {
+  font-size: 3rem;
+  line-height: 0.75;
+  margin: 0.5rem 0;
+  text-transform: lowercase;
+  font-weight: 600;
+  text-align: right;
+}
+
+.case.case-01 .lg {
+  margin-bottom: 10rem;
+  text-align: left;
+}
+
+.case.case-01 .br {
+  height: 5rem;
+}
+
+/* 02 */
+.case.case-02 p {
+  position: relative;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 25vw;
+  margin: 5rem 0 5rem 2vw;
+  line-height: 0.8;
+}
+
+.case.case-02 .sm {
+  position: relative;
+  left: 33vw;
+}
+
+.case.case-02 .lg.instance-2 {
+  position: relative;
+  left: 70vw;
+}
+
+/* 03 */
+.case.case-03 p {
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.case.case-03 .split-lines-left {
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.case.case-03 .split-lines-right {
+  text-align: left;
+}
+
+.case.case-03 .split-lines-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 2rem;
+}
+
+.case.case-03 .split-lines-wrapper:nth-child(even) {
+  justify-self: flex-end;
+}
+
+/* 04 */
+.case.case-04 {
+  padding: 0.5rem 0;
+  min-height: 100vh;
+}
+
+.case.case-04 p {
+  font-size: 2.5rem;
+  line-height: 0.65;
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.case.case-04 .lg {
+  margin-left: 4rem;
+}
+
+.case.case-04 .md {
+  margin-left: 1rem;
+}
+
 /* WEIGHT */
 
 /* 01 */
@@ -515,4 +607,248 @@ body {
 .orientation-04 p:nth-of-type(6n + 6) {
   transform: rotate(-15deg);
   padding: 6rem 0;
+}
+
+/* MOTION */
+
+.motion .stanza-wrapper {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.motion p {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* 01 */
+.motion.motion-01 {
+  display: flex;
+  flex-direction: column;
+}
+
+.motion.motion-01 .cloud-group {
+  animation: cloud-flow 12s ease-in-out infinite alternate;
+  will-change: transform, width;
+}
+.motion.motion-01 .cloud-group:nth-child(1) {
+  animation-delay: 0s;
+  align-self: flex-end;
+  width: 30em;
+}
+.motion.motion-01 .cloud-group:nth-child(2) {
+  animation-delay: 1s;
+  align-self: flex-start;
+  width: 30em;
+}
+
+/* 02 */
+.motion.motion-02 .stanza-wrapper {
+  position: absolute;
+  left: 0;
+  right: auto;
+  width: 60vw;
+  border-radius: 2rem;
+  padding: 1.5rem 2rem;
+  margin: 0;
+  text-align: center;
+  opacity: 1;
+  background: none;
+}
+.motion.motion-02 {
+  position: relative;
+  min-height: 80vh;
+}
+.motion.motion-02 .stanza-wrapper:nth-child(1) {
+  animation: cloud-sweep-right 18s ease-in-out infinite alternate;
+  left: -30vw;
+  top: 5vh;
+  z-index: 4;
+  animation-delay: 1s;
+}
+.motion.motion-02 .stanza-wrapper:nth-child(2) {
+  animation: cloud-sweep-left 18s ease-in-out infinite alternate;
+  right: -30vw;
+  left: auto;
+  top: 25vh;
+  z-index: 3;
+  animation-delay: 0.5s;
+}
+.motion.motion-02 .stanza-wrapper:nth-child(3) {
+  animation: cloud-sweep-right 18s ease-in-out infinite alternate;
+  left: -30vw;
+  top: 45vh;
+  z-index: 2;
+}
+.motion.motion-02 .stanza-wrapper:nth-child(4) {
+  animation: cloud-sweep-left 18s ease-in-out infinite alternate;
+  right: -30vw;
+  left: auto;
+  top: 65vh;
+  z-index: 1;
+  animation-delay: 2s;
+}
+@keyframes cloud-sweep-right {
+  0% {
+    left: -30vw;
+  }
+  100% {
+    left: 70vw;
+  }
+}
+@keyframes cloud-sweep-left {
+  0% {
+    right: -30vw;
+  }
+  100% {
+    right: 70vw;
+  }
+}
+
+/* 03 */
+
+.motion.motion-03 {
+  position: relative;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+.motion.motion-03 .stanza-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 21vw;
+  max-width: 420px;
+  border-radius: 2rem;
+  padding: 1.2rem 1.2rem;
+  margin: 0;
+  opacity: 0;
+  display: block;
+  animation: cloud-float 18s cubic-bezier(0.6, 0.1, 0.4, 1) 1;
+  animation-fill-mode: forwards;
+}
+.motion.motion-03 .stanza-wrapper:nth-child(1) {
+  left: 3vw;
+  animation-delay: 0s;
+}
+.motion.motion-03 .stanza-wrapper:nth-child(2) {
+  left: 27vw;
+  animation-delay: 2s;
+}
+.motion.motion-03 .stanza-wrapper:nth-child(3) {
+  left: 51vw;
+  animation-delay: 1s;
+}
+.motion.motion-03 .stanza-wrapper:nth-child(4) {
+  left: 75vw;
+  animation-delay: 3s;
+}
+
+@keyframes cloud-float {
+  0% {
+    transform: translateY(60vh) scale(0.95);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(-2vh) scale(1.03);
+    opacity: 1;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 04 */
+.motion.motion.motion-04 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.motion.motion-01 .cloud-group,
+.motion.motion-04 .cloud-group {
+  display: inline-block;
+  border-radius: 2rem;
+  padding: 2.5rem 3rem;
+  margin: 2rem 2vw;
+  text-align: center;
+}
+.motion.motion-01 .cloud-group {
+  animation: cloud-flow 12s infinite alternate ease-in-out;
+}
+.motion.motion-04 .cloud-group {
+  will-change: transform;
+}
+.motion.motion-04 .cloud-group:nth-child(1) {
+  animation: cloud-spin-circle 10s linear infinite alternate;
+  animation-delay: 0s;
+}
+.motion.motion-04 .cloud-group:nth-child(2) {
+  animation: cloud-spin-circle-left 10s linear infinite alternate;
+  animation-delay: 1s;
+}
+@keyframes cloud-flow {
+  0% {
+    width: 30vw;
+  }
+  50% {
+    width: 55vw;
+  }
+  100% {
+    width: 35vw;
+  }
+}
+
+/* Hide individual stanza wrappers for these cases */
+.motion.motion-01 .stanza-wrapper,
+.motion.motion-04 .stanza-wrapper {
+  display: none;
+}
+
+@keyframes cloud-spin-circle {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  25% {
+    transform: rotate(45deg) translate(2vw, -2vw);
+  }
+  50% {
+    transform: rotate(90deg) translate(4vw, 0vw);
+  }
+  75% {
+    transform: rotate(135deg) translate(2vw, 2vw);
+  }
+  100% {
+    transform: rotate(180deg) translate(0, 0);
+  }
+}
+@keyframes cloud-spin-circle-left {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  25% {
+    transform: rotate(-45deg) translate(-2vw, -2vw);
+  }
+  50% {
+    transform: rotate(-90deg) translate(-4vw, 0vw);
+  }
+  75% {
+    transform: rotate(-135deg) translate(-2vw, 2vw);
+  }
+  100% {
+    transform: rotate(-180deg) translate(0, 0);
+  }
 }

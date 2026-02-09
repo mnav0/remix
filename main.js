@@ -41,22 +41,53 @@ function createNavElems() {
 }
 
 const displayStanzas = (container, instances = 1, className = '') => {
-	styledPoem.stanzas.forEach((stanzaObj, idx) => {
-      const stanzaWrapper = document.createElement('div');
-      stanzaWrapper.className = 'stanza-wrapper';
-      for (let i = 0; i < instances; i++) {
-
-        const div = document.createElement('p');
-        div.textContent = stanzaObj.text;
-        if (stanzaObj.class) {
-          div.classList.add(stanzaObj.class);
-        }
-        div.classList.add('stanza-' + (idx + 1));
-        div.classList.add('instance-' + (i + 1));
-        stanzaWrapper.appendChild(div);
-        container.appendChild(stanzaWrapper);
+  styledPoem.stanzas.forEach((stanzaObj, idx) => {
+    const stanzaWrapper = document.createElement('div');
+    stanzaWrapper.className = 'stanza-wrapper';
+    for (let i = 0; i < instances; i++) {
+      const div = document.createElement('p');
+      div.textContent = stanzaObj.text;
+      if (stanzaObj.class) {
+        div.classList.add(stanzaObj.class);
       }
-	});
+      div.classList.add('stanza-' + (idx + 1));
+      div.classList.add('instance-' + (i + 1));
+      stanzaWrapper.appendChild(div);
+      container.appendChild(stanzaWrapper);
+    }
+  });
+}
+
+function displayStanzaGroups(container) {
+  // Group first two stanzas
+  const group1 = document.createElement('div');
+  group1.className = 'cloud-group';
+  for (let i = 0; i < 2; i++) {
+    const stanzaObj = styledPoem.stanzas[i];
+    const div = document.createElement('p');
+    div.textContent = stanzaObj.text;
+    if (stanzaObj.class) {
+      div.classList.add(stanzaObj.class);
+    }
+    div.classList.add('stanza-' + (i + 1));
+    group1.appendChild(div);
+  }
+  container.appendChild(group1);
+
+  // Group last two stanzas
+  const group2 = document.createElement('div');
+  group2.className = 'cloud-group';
+  for (let i = 2; i < 4; i++) {
+    const stanzaObj = styledPoem.stanzas[i];
+    const div = document.createElement('p');
+    div.textContent = stanzaObj.text;
+    if (stanzaObj.class) {
+      div.classList.add(stanzaObj.class);
+    }
+    div.classList.add('stanza-' + (i + 1));
+    group2.appendChild(div);
+  }
+  container.appendChild(group2);
 }
 
 const displayLongStanzas = (container, className = '') => {
@@ -191,12 +222,13 @@ const poemComponents = rules.map((rule, rIdx) =>
           container.classList.add('case');
           container.classList.add('case-' + variation);
           if (variation === '01') {
-            displayLines(container);
+            displayLines(container, true);
           } else if (variation === '02') {
-            displayLines(container);
+            displaySplitStanzas(container);
           } else if (variation === '03') {
             displaySplitLines(container, 0, 'case-03-left', 'case-03-right');
           } else if (variation === '04') {
+            invertColors(container);
             displayWords(container);
           }
           break;
@@ -233,13 +265,13 @@ const poemComponents = rules.map((rule, rIdx) =>
           container.classList.add('motion');
           container.classList.add('motion-' + variation);
           if (variation === '01') {
-            displayStanzas(container);
+            displayStanzaGroups(container);
           } else if (variation === '02') {
             displayStanzas(container);
           } else if (variation === '03') {
             displayStanzas(container);
           } else if (variation === '04') {
-            displayStanzas(container);
+            displayStanzaGroups(container);
           }
           break;
         default:
