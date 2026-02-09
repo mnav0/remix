@@ -131,6 +131,9 @@ body {
 }
 
 /* 02 */
+.size.size-02 {
+  padding: 2rem;
+}
 
 .size.size-02 p {
   font-weight: 700;
@@ -183,21 +186,21 @@ body {
 
 .size.size-03 .stanza-2 {
   position: fixed;
-  top: 20rem;
+  top: 13rem;
   width: 70%;
   margin: 0 auto;
 }
 
 .size.size-03 .stanza-3 {
   position: fixed;
-  top: 35rem;
+  top: 20.5rem;
   width: 70%;
   margin: 0 auto;
 }
 
 .size.size-03 .stanza-4 {
   position: fixed;
-  top: 56.5rem;
+  top: 27.5rem;
   width: 70%;
   margin: 0 auto;
 }

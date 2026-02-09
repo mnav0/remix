@@ -210,6 +210,7 @@ const poemComponents = rules.map((rule, rIdx) =>
           if (variation === '01') {
             displayLongStanzas(container);
           } else if (variation === '02') {
+            invertColors(container);
             displayLines(container);
           } else if (variation === '03') {
             displayStanzas(container);
