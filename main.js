@@ -40,17 +40,60 @@ function createNavElems() {
   activeNavButton();
 }
 
-const displayStanzas = (container, className = '') => {
+const displayStanzas = (container, instances = 1, className = '') => {
 	styledPoem.stanzas.forEach((stanzaObj, idx) => {
-		const div = document.createElement('p');
-		div.textContent = stanzaObj.text;
-		div.className = (className || stanzaObj.class || '') + ' stanza-' + (idx + 1);
-		container.appendChild(div);
+      const stanzaWrapper = document.createElement('div');
+      stanzaWrapper.className = 'stanza-wrapper';
+      for (let i = 0; i < instances; i++) {
+
+        const div = document.createElement('p');
+        div.textContent = stanzaObj.text;
+        if (stanzaObj.class) {
+          div.classList.add(stanzaObj.class);
+        }
+        div.classList.add('stanza-' + (idx + 1));
+        div.classList.add('instance-' + (i + 1));
+        stanzaWrapper.appendChild(div);
+        container.appendChild(stanzaWrapper);
+      }
 	});
 }
 
-const displayLines = (container, className = '') => {
+const displayLongStanzas = (container, className = '') => {
+	styledPoem.longStanzas.forEach((stanzaObj, idx) => {
+  const p = document.createElement('p');
+  p.textContent = stanzaObj.text;
+  if (stanzaObj.class) {
+    p.classList.add(stanzaObj.class);
+  }
+  p.classList.add('stanza-' + (idx + 1));
+  container.appendChild(p);
+});
+}
+
+const displaySplitStanzas = (container, className = '') => {
+	styledPoem.splitStanzas.forEach((stanzaList, idx) => {
+      const stanzaWrapper = document.createElement('div');
+      stanzaWrapper.className = 'stanza-wrapper stanza-wrapper-' + (idx + 1);
+      stanzaList.forEach((stanzaObj, i) => {
+        const div = document.createElement('p');
+        div.textContent = stanzaObj.text;
+        if (stanzaObj.class) {
+          div.classList.add(stanzaObj.class);
+        }
+        div.classList.add('stanza-' + (idx + 1));
+        div.classList.add('instance-' + (i + 1));
+        stanzaWrapper.appendChild(div);
+        container.appendChild(stanzaWrapper);
+      });
+	});
+}
+
+const displayLines = (container, drawBrs = false, className = '') => {
 	styledPoem.lines.forEach((lineObj, idx) => {
+    if (lineObj.class === 'br' && !drawBrs) {
+      return;
+    }
 		const div = document.createElement('p');
 		div.textContent = lineObj.text;
 		div.classList.add((className || lineObj.class));
@@ -103,6 +146,26 @@ function displaySplitLines(container, leftClass = '', rightClass = '') {
 	});
 }
 
+function displayLinesWithWordAccents(container) {
+  styledPoem.linesWithWordAccents.forEach((lineObj, idx) => {
+    const p = document.createElement('p');
+    const words = lineObj.text.split(/(\s+)/); // preserve spaces
+    words.forEach(word => {
+      const accent = lineObj.accents.find(a => a.word === word.trim());
+      if (accent) {
+        const span = document.createElement('span');
+        span.textContent = word.trim();
+        span.className = accent.class;
+        p.appendChild(span);
+      } else {
+        p.appendChild(document.createTextNode(word));
+      }
+    });
+    p.classList.add('line-' + (idx + 1));
+    container.appendChild(p);
+  });
+}
+
 const poemComponents = rules.map((rule, rIdx) =>
 	variations.map((variation, vIdx) => {
 		return function render(container) {
@@ -114,14 +177,14 @@ const poemComponents = rules.map((rule, rIdx) =>
           container.classList.add('size');
           container.classList.add('size-' + variation);
           if (variation === '01') {
-            displayLines(container);
+            displayLongStanzas(container);
           } else if (variation === '02') {
-            displayWords(container);
+            displayLines(container);
           } else if (variation === '03') {
             displayStanzas(container);
           } else if (variation === '04') {
             invertColors(container);
-            displayLines(container);
+            displaySplitStanzas(container);
           }
           break;
         case 'case':
@@ -148,7 +211,7 @@ const poemComponents = rules.map((rule, rIdx) =>
             invertColors(container);
             displayStanzas(container);
           } else if (variation === '04') {
-            displayLines(container);
+            displayStanzas(container, 2);
           }
           break;
         case 'orientation':
@@ -156,12 +219,12 @@ const poemComponents = rules.map((rule, rIdx) =>
           container.classList.add('orientation-' + variation);
           if (variation === '01') {
             invertColors(container);
-            displayLines(container);
+            displayLines(container, true);
           } else if (variation === '02') {
             displayStanzas(container);
           } else if (variation === '03') {
             invertColors(container);
-            displaySplitLines(container, 'orientation-03-left', 'orientation-03-right');
+            displayLinesWithWordAccents(container);
           } else if (variation === '04') {
             displayLines(container);
           }

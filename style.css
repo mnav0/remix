@@ -17,7 +17,6 @@ body {
   left: 0;
   z-index: 100;
   position: relative;
-  border-bottom: 1px solid #fff;
 }
 
 #nav-bar ul {
@@ -98,12 +97,166 @@ body {
   margin: 0.25rem;
 }
 
+/* SIZE */
+
+/* 01 */
+
+.size.size-01 p {
+  font-weight: 700;
+  line-height: 0.6;
+  display: inline-block;
+}
+
+.size.size-01 .sm {
+  font-size: 1rem;
+  width: 25rem;
+  position: relative;
+  top: 5rem;
+  left: -3.5rem;
+}
+
+.size.size-01 .sm:nth-child(4) {
+  top: 4rem;
+  left: -9rem;
+}
+
+.size.size-01 .sm:nth-child(6) {
+  left: -5rem;
+}
+
+.size.size-01 .lg {
+  font-size: 10rem;
+  width: 55rem;
+  margin: 12rem 0;
+}
+
+/* 02 */
+
+.size.size-02 p {
+  font-weight: 700;
+  line-height: 0.6;
+  display: inline-block;
+}
+
+.size.size-02 .sm {
+  font-size: 1rem;
+  width: 25rem;
+  position: relative;
+  top: 5rem;
+  left: -3.5rem;
+}
+
+.size.size-02 .sm {
+  top: 4rem;
+  left: 0rem;
+}
+
+.size.size-02 .lg {
+  font-size: 6rem;
+  width: 55rem;
+}
+
+.size.size-02 .md {
+  font-size: 2rem;
+  width: 55rem;
+  margin: 10rem 0;
+}
+
+/* 03 */
+
+.size.size-03 {
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.size.size-03 p {
+  line-height: 0.9;
+}
+
+.size.size-03 .stanza-1 {
+  font-size: 6rem;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+.size.size-03 .stanza-2 {
+  position: fixed;
+  top: 20rem;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.size.size-03 .stanza-3 {
+  position: fixed;
+  top: 35rem;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.size.size-03 .stanza-4 {
+  position: fixed;
+  top: 56.5rem;
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* 04 */
+
+.size.size-04 {
+  padding: 2rem 0;
+  min-height: 100vh;
+}
+
+.size.size-04 p {
+  font-size: 5rem;
+  line-height: 0.6;
+  padding: 0;
+  margin: 0;
+}
+
+.size.size-04 .sm {
+  font-size: 1.25rem;
+  line-height: 0.8;
+  width: 60%;
+}
+
+.size.size-04 .lg {
+  font-size: 5rem;
+  line-height: 0.6;
+  margin-bottom: 1.5rem;
+}
+
+.size.size-04 .stanza-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.size.size-04 .stanza-wrapper-1,
+.size.size-04 .stanza-wrapper-3 {
+  margin: 0 0 10rem -0.05rem;
+}
+
+.size.size-04 .stanza-wrapper-2 {
+  margin: 0 0 10rem -0.05rem;
+  text-align: right;
+  align-items: flex-end;
+}
+
+.size.size-04 .stanza-wrapper-4 {
+  margin: 10rem -0.05rem 0 0;
+  text-align: right;
+  align-items: flex-end;
+}
+
 /* WEIGHT */
 
 /* 01 */
 
 .weight.weight-01 p {
-  font-size: 4.5rem;
+  font-size: 4rem;
   line-height: 0.75;
   margin: 0.5rem 0;
 }
@@ -156,59 +309,61 @@ body {
 
 .weight.weight-03 .stanza-1 {
   font-weight: 900;
-  width: 45%;
 }
 
 .weight.weight-03 .stanza-2 {
   font-weight: 400;
-  width: 45%;
   text-align: right;
 }
 
 .weight.weight-03 .stanza-3 {
   font-weight: 300;
-  width: 45%;
 }
 
 .weight.weight-03 .stanza-4 {
   font-weight: 800;
   text-align: right;
+}
+
+.weight.weight-03 .stanza-wrapper {
   width: 45%;
 }
 
 /* 04 */
 
+.weight.weight-04 {
+  margin: -5.5rem 0 0 0;
+}
+
 .weight.weight-04 p {
-  font-size: 4.5rem;
+  font-size: 4rem;
   line-height: 0.6;
   padding: 0;
   margin: 0;
-  font-weight: 300;
+  font-weight: 900;
+  width: 75%;
 }
 
-.weight.weight-04 {
+.weight.weight-04 .stanza-wrapper {
   position: relative;
-  top: -0.75rem;
+  width: 100%;
+  margin-top: 5rem;
 }
 
-.weight.weight-04 .stanza-2 {
-  font-weight: 500;
+.weight.weight-04 .instance-1 {
+  position: relative;
+  z-index: 10;
+}
+
+.weight.weight-04 .instance-2 {
+  position: absolute;
+  color: transparent;
+  -webkit-text-stroke: 1px black;
+  text-stroke: 1px black;
   text-align: right;
-  position: relative;
-  top: -0.25rem;
-}
-
-.weight.weight-04 .stanza-3 {
-  font-weight: 700;
-  position: relative;
-  top: -0.5rem;
-}
-
-.weight.weight-04 .stanza-4 {
-  font-weight: 300;
-  text-align: right;
-  position: relative;
-  top: -0.75rem;
+  z-index: 1;
+  right: 0;
+  top: 0;
 }
 
 /* ORIENTATION */
@@ -225,6 +380,23 @@ body {
 }
 
 /* 01 */
+.orientation-01 {
+  padding: 2rem;
+  top: 0;
+}
+
+.orientation-01 .sm {
+  transform: rotate(180deg);
+  text-align: right;
+}
+
+.orientation-01 p {
+  margin: 1.5rem;
+}
+
+.orientation-01 .br {
+  height: 8rem;
+}
 
 /* 02 */
 .orientation-02 .stanza-1 {
@@ -259,4 +431,88 @@ body {
 
 /* 03 */
 
+.orientation-03 {
+  top: 0;
+  padding: 2rem;
+}
+
+.orientation-03 p {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  position: relative;
+}
+
+.orientation-03 p:nth-child(even) {
+  margin: 7.5rem 0 0 0;
+}
+
+.orientation-03 .md {
+  display: inline-block;
+  position: relative;
+  top: -2rem;
+}
+.orientation-03 .sm {
+  display: inline-block;
+  transform: rotate(45deg);
+  position: relative;
+  top: 1em;
+  margin: 0 0 2rem 0;
+}
+.orientation-03 .xs {
+  display: inline-block;
+  position: relative;
+  top: 2rem;
+}
+.orientation-03 .lg {
+  display: inline-block;
+  transform: rotate(-90deg);
+  margin: 2rem -1rem;
+}
+
 /* 04 */
+
+.orientation-04 p {
+  transition: transform 0.3s;
+  margin: 0;
+  padding-top: 2.5rem;
+}
+
+.orientation-04 p:nth-of-type(6n + 1),
+.orientation-04 p:nth-of-type(6n + 2),
+.orientation-04 p:nth-of-type(6n + 3) {
+  text-align: left;
+  padding-left: 2vw;
+}
+.orientation-04 p:nth-of-type(6n + 1) {
+  transform: rotate(-15deg);
+  padding: 6rem 0;
+}
+.orientation-04 p:nth-of-type(6n + 2) {
+  transform: rotate(0deg);
+  padding: 6rem 1.5rem;
+}
+.orientation-04 p:nth-of-type(6n + 3) {
+  transform: rotate(15deg);
+  padding: 6rem 0;
+}
+
+.orientation-04 p:nth-of-type(6n + 4),
+.orientation-04 p:nth-of-type(6n + 5),
+.orientation-04 p:nth-of-type(6n + 6) {
+  text-align: right;
+  padding-right: 2vw;
+}
+.orientation-04 p:nth-of-type(6n + 4) {
+  transform: rotate(15deg);
+  padding: 6rem 0;
+}
+.orientation-04 p:nth-of-type(6n + 5) {
+  transform: rotate(0deg);
+  padding: 6rem 1.5rem;
+}
+.orientation-04 p:nth-of-type(6n + 6) {
+  transform: rotate(-15deg);
+  padding: 6rem 0;
+}
