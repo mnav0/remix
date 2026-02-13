@@ -1,6 +1,6 @@
 import { poem, styledPoem } from './poem.js';
 
-const rules = ['size', 'case', 'weight', 'orientation', 'motion'];
+const rules = ['weight', 'size', 'case', 'orientation', 'motion'];
 const variations = ['01', '02', '03', '04'];
 
 let currentRuleIndex = 0;
